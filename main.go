@@ -5,10 +5,11 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/FACorreiaa/go-wesbite/assets"
-	"github.com/FACorreiaa/go-wesbite/ui/pages"
+	"github.com/FACorreiaa/go-website/ui/pages"
 	"github.com/a-h/templ"
 	"github.com/joho/godotenv"
+
+	"github.com/FACorreiaa/go-website/assets"
 )
 
 func main() {
