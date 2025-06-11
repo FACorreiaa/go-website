@@ -1,0 +1,247 @@
+package cv
+
+import (
+	"github.com/FACorreiaa/go-website/ui/components/card"
+	"github.com/FACorreiaa/go-website/ui/components/button"
+)
+
+templ CV() {
+	<div class="min-h-screen bg-background">
+		<div class="container mx-auto px-4 py-8 max-w-4xl">
+			<!-- Header -->
+			<div class="text-center mb-12">
+				<h1 class="text-4xl font-bold mb-4">Fernando António Torre Correia</h1>
+				<h2 class="text-2xl text-primary mb-4">Golang Developer</h2>
+				<div class="flex justify-center gap-6 text-sm text-muted-foreground">
+					<span>📞 +351 937042328</span>
+					<span>✉️ fernandocorreia316@gmail.com</span>
+				</div>
+				<div class="flex justify-center gap-4 mt-4">
+					<a href="https://www.linkedin.com/in/fernando-correia-ab018079/" target="_blank" class="text-primary hover:underline">LinkedIn</a>
+					<a href="https://github.com/FACorreiaa" target="_blank" class="text-primary hover:underline">GitHub</a>
+				</div>
+			</div>
+
+			<!-- Professional Summary -->
+			@card.Card() {
+				<div class="p-8">
+					<h2 class="text-2xl font-semibold mb-6">Professional Summary</h2>
+					<p class="text-muted-foreground leading-relaxed">
+						Software Engineer with 7+ years of experience architecting scalable web services using
+						Golang and cloud technologies. Proven track record in diverse sectors like finance and
+						telecommunications, delivering high-performance solutions in multinational
+						environments. Expertise in backend development, distributed systems, and API design
+						(REST, gRPC), with a strong focus on observability and optimization. Passionate about
+						solving complex problems and driving innovation. Recently I have been working with LLM
+						integrations from MCP servers to SDK providers like Gemini and on the creation of agentic
+						applications.
+					</p>
+				</div>
+			}
+
+			<!-- Professional Experience -->
+			<div class="mt-8">
+				@card.Card() {
+					<div class="p-8">
+						<h2 class="text-2xl font-semibold mb-6">Professional Experience</h2>
+						<div class="space-y-8">
+							<!-- iDWELL -->
+							<div class="border-l-4 border-primary/30 pl-6">
+								<div class="flex justify-between items-start mb-2">
+									<h3 class="text-lg font-semibold">Golang Developer</h3>
+									<span class="text-sm text-muted-foreground">Aug 2024 – Present</span>
+								</div>
+								<p class="text-primary mb-2">iDWELL – Vienna, Austria (Remote)</p>
+								<ul class="list-disc list-inside text-muted-foreground space-y-1">
+									<li>Developing web services for the finance sector, working on mission-critical features with Go, Postgres, MSSQL, and GraphQL</li>
+									<li>Focused on building scalable, robust APIs that streamline financial data processing, ensuring data consistency and reliability</li>
+									<li>Collaborating with cross-functional teams to enhance system architecture and drive process automation for finance-related tasks</li>
+								</ul>
+							</div>
+
+							<!-- GSMK -->
+							<div class="border-l-4 border-primary/30 pl-6">
+								<div class="flex justify-between items-start mb-2">
+									<h3 class="text-lg font-semibold">Software Developer</h3>
+									<span class="text-sm text-muted-foreground">Jan 2023 – Aug 2024</span>
+								</div>
+								<p class="text-primary mb-2">GSMK – Berlin, Germany</p>
+								<ul class="list-disc list-inside text-muted-foreground space-y-1">
+									<li>Introduced Golang for developing CLI tools to streamline multi-technology projects, coordinating with Erlang, Rust, and C++ teams</li>
+									<li>Built the web version of the company's mobile network tracking application using React and Rust, offering a comprehensive overview of network stations and their data</li>
+									<li>Developed gRPC-based microservices at GSMK to enable efficient communication between internal services, integrated with OTLP for real-time telemetry and monitoring with Prometheus</li>
+									<li><strong>Tech Stack:</strong> Golang (Bubbletea, Cobra), React, Rust, PostgREST, Redis, RadixUI</li>
+								</ul>
+							</div>
+
+							<!-- Beedeez -->
+							<div class="border-l-4 border-primary/30 pl-6">
+								<div class="flex justify-between items-start mb-2">
+									<h3 class="text-lg font-semibold">Software Developer</h3>
+									<span class="text-sm text-muted-foreground">Jan 2021 – Jan 2023</span>
+								</div>
+								<p class="text-primary mb-2">Beedeez – Paris, France</p>
+								<ul class="list-disc list-inside text-muted-foreground space-y-1">
+									<li>Led the development of a social learning platform with React Native and TypeScript, ensuring high reusability of frontend components</li>
+									<li>Developed a Go-based tool to aggregate and manage JSON data, improving internal team communication and facilitating decision-making for sales teams</li>
+									<li>Development of TUI applications</li>
+									<li>Built cross-platform mobile and web apps, implementing a dynamic learning experience with full backoffice configuration capabilities</li>
+									<li><strong>Tech Stack:</strong> Golang, React Native Web, Redux, TypeScript, Node, MongoDB, ImmutableJS</li>
+								</ul>
+							</div>
+
+							<!-- Cocus Portugal -->
+							<div class="border-l-4 border-primary/30 pl-6">
+								<div class="flex justify-between items-start mb-2">
+									<h3 class="text-lg font-semibold">Software Developer</h3>
+									<span class="text-sm text-muted-foreground">May 2019 – Nov 2019</span>
+								</div>
+								<p class="text-primary mb-2">Cocus Portugal – Matosinhos, Portugal</p>
+								<ul class="list-disc list-inside text-muted-foreground space-y-1">
+									<li>Developed a restaurant data management MVP that integrated with Google My Business, improving the online presence of restaurant clients</li>
+									<li>Focused on mobile-first design, ensuring responsive views for the application</li>
+									<li><strong>Tech Stack:</strong> Node, Angular 8, NGRX, Jira, Git</li>
+								</ul>
+							</div>
+
+							<!-- Glintt HS -->
+							<div class="border-l-4 border-primary/30 pl-6">
+								<div class="flex justify-between items-start mb-2">
+									<h3 class="text-lg font-semibold">Software Developer</h3>
+									<span class="text-sm text-muted-foreground">Sep 2017 – May 2019</span>
+								</div>
+								<p class="text-primary mb-2">Glintt HS – Porto, Portugal</p>
+								<ul class="list-disc list-inside text-muted-foreground space-y-1">
+									<li>Developed web applications for the healthcare sector, focusing on pharmacy and patient management systems</li>
+									<li>Worked on a privacy-focused blockchain project, ensuring secure data handling through C# and MongoDB integrations</li>
+									<li><strong>Tech Stack:</strong> ASP.NET, C#, Angular, React, MongoDB, SQL Server, Git</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				}
+			</div>
+
+			<!-- Education -->
+			<div class="mt-8">
+				@card.Card() {
+					<div class="p-8">
+						<h2 class="text-2xl font-semibold mb-6">Education</h2>
+						<div class="space-y-6">
+							<div>
+								<h3 class="text-lg font-semibold">Master's in Computer Science</h3>
+								<p class="text-primary">Instituto Politécnico do Cávado e Ave – Barcelos, Portugal</p>
+								<p class="text-sm text-muted-foreground">2018 – 2020</p>
+							</div>
+							<div>
+								<h3 class="text-lg font-semibold">BSc in Computer Science</h3>
+								<p class="text-primary">Instituto Politécnico do Cávado e Ave – Barcelos, Portugal</p>
+								<p class="text-sm text-muted-foreground">2014 – 2017</p>
+							</div>
+							<div>
+								<h3 class="text-lg font-semibold">BSc in Logistics Management</h3>
+								<p class="text-primary">Instituto Politécnico do Cávado e Ave – Barcelos, Portugal</p>
+								<p class="text-sm text-muted-foreground">2007 – 2011</p>
+							</div>
+						</div>
+					</div>
+				}
+			</div>
+
+			<!-- Skills -->
+			<div class="mt-8">
+				@card.Card() {
+					<div class="p-8">
+						<h2 class="text-2xl font-semibold mb-6">Skills</h2>
+						<div class="grid md:grid-cols-2 gap-6">
+							<div>
+								<h3 class="text-lg font-semibold mb-3">Languages</h3>
+								<div class="flex flex-wrap gap-2">
+									<span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Golang</span>
+									<span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">C#</span>
+									<span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">TypeScript</span>
+									<span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">SQL</span>
+									<span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">JavaScript</span>
+								</div>
+							</div>
+							<div>
+								<h3 class="text-lg font-semibold mb-3">Technologies</h3>
+								<div class="flex flex-wrap gap-2">
+									<span class="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm">Postgres</span>
+									<span class="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm">MSSQL</span>
+									<span class="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm">MongoDB</span>
+									<span class="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm">Redis</span>
+									<span class="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm">Kafka</span>
+									<span class="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm">GraphQL</span>
+									<span class="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm">Docker</span>
+									<span class="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm">Datadog</span>
+								</div>
+							</div>
+							<div>
+								<h3 class="text-lg font-semibold mb-3">Frameworks</h3>
+								<div class="flex flex-wrap gap-2">
+									<span class="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm">React</span>
+									<span class="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm">Node.js</span>
+									<span class="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm">React Native</span>
+									<span class="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm">PostgREST</span>
+									<span class="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm">Redux</span>
+								</div>
+							</div>
+							<div>
+								<h3 class="text-lg font-semibold mb-3">Tools</h3>
+								<div class="flex flex-wrap gap-2">
+									<span class="px-3 py-1 bg-muted text-muted-foreground rounded-full text-sm">Git</span>
+									<span class="px-3 py-1 bg-muted text-muted-foreground rounded-full text-sm">Jira</span>
+									<span class="px-3 py-1 bg-muted text-muted-foreground rounded-full text-sm">Docker</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				}
+			</div>
+
+			<!-- Contact -->
+			<div class="mt-8">
+				@card.Card() {
+					<div class="p-8 text-center">
+						<h2 class="text-2xl font-semibold mb-4">Let's Connect</h2>
+						<p class="text-muted-foreground mb-6">
+							I'm always excited to connect with fellow developers, discuss new opportunities, 
+							or simply chat about technology and innovation.
+						</p>
+						
+						<div class="flex justify-center gap-4">
+							@button.Button(button.Props{
+								Variant: "default",
+								Href:    "mailto:fernandocorreia316@gmail.com",
+							}) {
+								Get In Touch
+							}
+							@button.Button(button.Props{
+								Variant: "secondary",
+								Href:    "https://alunosipca-my.sharepoint.com/:w:/g/personal/a11199_alunos_ipca_pt/ESQtn-RfJexFuzTIfSrCTDIBPOEWApCr0ZQdGKxB8vmKNA?e=Wy1Trf",
+								Target:  "_blank",
+							}) {
+								📄 Download PDF
+							}
+							@button.Button(button.Props{
+								Variant: "outline",
+								Href:    "https://www.linkedin.com/in/fernando-correia-ab018079/",
+								Target:  "_blank",
+							}) {
+								LinkedIn
+							}
+							@button.Button(button.Props{
+								Variant: "outline",
+								Href:    "https://github.com/FACorreiaa",
+								Target:  "_blank",
+							}) {
+								GitHub
+							}
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+}

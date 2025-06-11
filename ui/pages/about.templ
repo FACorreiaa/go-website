@@ -1,0 +1,212 @@
+package pages
+
+import (
+	"github.com/FACorreiaa/go-website/ui/layouts"
+	"github.com/FACorreiaa/go-website/ui/components/card"
+	"github.com/FACorreiaa/go-website/ui/components/button"
+)
+
+templ About() {
+	@layouts.BaseLayout() {
+		<div class="min-h-screen bg-background">
+			<div class="container mx-auto px-4 py-8 max-w-4xl">
+				<!-- Header -->
+				<div class="text-center mb-12">
+					<h1 class="text-4xl font-bold mb-4">About Me</h1>
+					<p class="text-xl text-muted-foreground">Get to know the person behind the code</p>
+				</div>
+
+				<!-- Personal Introduction -->
+				@card.Card() {
+					<div class="p-8">
+						<div class="grid md:grid-cols-3 gap-8 items-center">
+							<div class="md:col-span-1 flex justify-center">
+								<div class="w-48 h-48 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full flex items-center justify-center">
+									<span class="text-6xl">👨‍💻</span>
+								</div>
+							</div>
+							<div class="md:col-span-2 space-y-4">
+								<h2 class="text-2xl font-semibold">Hello, I'm Fernando!</h2>
+								<p class="text-muted-foreground leading-relaxed">
+									I'm a passionate software engineer with a love for creating elegant solutions to complex problems. 
+									My journey in technology started over 5 years ago, and I've been fascinated by the endless 
+									possibilities that code can unlock ever since.
+								</p>
+								<p class="text-muted-foreground leading-relaxed">
+									When I'm not coding, you'll find me exploring new technologies, contributing to open-source 
+									projects, or sharing my knowledge through technical writing and mentoring.
+								</p>
+							</div>
+						</div>
+					</div>
+				}
+
+				<!-- My Story -->
+				<div class="mt-8">
+					@card.Card() {
+						<div class="p-8">
+							<h2 class="text-2xl font-semibold mb-6">My Story</h2>
+							<div class="prose prose-neutral dark:prose-invert max-w-none">
+								<p class="text-muted-foreground leading-relaxed mb-4">
+									My fascination with technology began in college when I wrote my first "Hello, World!" program. 
+									That simple moment of seeing code come to life sparked a passion that has driven my career ever since.
+								</p>
+								<p class="text-muted-foreground leading-relaxed mb-4">
+									Throughout my career, I've had the privilege of working with amazing teams and tackling 
+									challenging problems across various industries. From startups to enterprise companies, 
+									each experience has shaped my approach to software development and problem-solving.
+								</p>
+								<p class="text-muted-foreground leading-relaxed">
+									I believe that great software is not just about clean code—it's about understanding user needs, 
+									collaborating effectively with teams, and continuously learning and adapting to new technologies.
+								</p>
+							</div>
+						</div>
+					}
+				</div>
+
+				<!-- What I Love -->
+				<div class="mt-8">
+					@card.Card() {
+						<div class="p-8">
+							<h2 class="text-2xl font-semibold mb-6">What I Love About Development</h2>
+							<div class="grid md:grid-cols-2 gap-6">
+								<div class="space-y-4">
+									<div class="flex items-start gap-3">
+										<div class="w-6 h-6 bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+											<span class="text-xs">🧩</span>
+										</div>
+										<div>
+											<h3 class="font-semibold mb-2">Problem Solving</h3>
+											<p class="text-sm text-muted-foreground">
+												Breaking down complex challenges into manageable pieces and finding elegant solutions.
+											</p>
+										</div>
+									</div>
+									
+									<div class="flex items-start gap-3">
+										<div class="w-6 h-6 bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+											<span class="text-xs">🚀</span>
+										</div>
+										<div>
+											<h3 class="font-semibold mb-2">Performance Optimization</h3>
+											<p class="text-sm text-muted-foreground">
+												Fine-tuning applications to achieve maximum efficiency and user experience.
+											</p>
+										</div>
+									</div>
+								</div>
+
+								<div class="space-y-4">
+									<div class="flex items-start gap-3">
+										<div class="w-6 h-6 bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+											<span class="text-xs">👥</span>
+										</div>
+										<div>
+											<h3 class="font-semibold mb-2">Team Collaboration</h3>
+											<p class="text-sm text-muted-foreground">
+												Working with diverse teams to build amazing products and mentor other developers.
+											</p>
+										</div>
+									</div>
+									
+									<div class="flex items-start gap-3">
+										<div class="w-6 h-6 bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+											<span class="text-xs">📚</span>
+										</div>
+										<div>
+											<h3 class="font-semibold mb-2">Continuous Learning</h3>
+											<p class="text-sm text-muted-foreground">
+												Staying up-to-date with the latest technologies and best practices in the industry.
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					}
+				</div>
+
+				<!-- Beyond Code -->
+				<div class="mt-8">
+					@card.Card() {
+						<div class="p-8">
+							<h2 class="text-2xl font-semibold mb-6">Beyond Code</h2>
+							<p class="text-muted-foreground leading-relaxed mb-6">
+								When I'm not immersed in code, I enjoy a variety of activities that keep me balanced and inspired:
+							</p>
+							
+							<div class="grid md:grid-cols-3 gap-6">
+								<div class="text-center">
+									<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+										<span class="text-2xl">🏃‍♂️</span>
+									</div>
+									<h3 class="font-semibold mb-2">Fitness & Running</h3>
+									<p class="text-sm text-muted-foreground">
+										Regular exercise helps me stay focused and energized for tackling complex problems.
+									</p>
+								</div>
+								
+								<div class="text-center">
+									<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+										<span class="text-2xl">📖</span>
+									</div>
+									<h3 class="font-semibold mb-2">Reading</h3>
+									<p class="text-sm text-muted-foreground">
+										I love reading about technology, psychology, and leadership to broaden my perspective.
+									</p>
+								</div>
+								
+								<div class="text-center">
+									<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+										<span class="text-2xl">🌍</span>
+									</div>
+									<h3 class="font-semibold mb-2">Travel</h3>
+									<p class="text-sm text-muted-foreground">
+										Exploring new cultures and places provides fresh insights and inspiration.
+									</p>
+								</div>
+							</div>
+						</div>
+					}
+				</div>
+
+				<!-- Let's Connect -->
+				<div class="mt-8">
+					@card.Card() {
+						<div class="p-8 text-center">
+							<h2 class="text-2xl font-semibold mb-4">Let's Connect</h2>
+							<p class="text-muted-foreground mb-6">
+								I'm always excited to connect with fellow developers, discuss new opportunities, 
+								or simply chat about technology and innovation.
+							</p>
+							
+							<div class="flex justify-center gap-4">
+								@button.Button(button.Props{
+									Variant: "default",
+									Href:    "mailto:fernandocorreia316@gmail.com",
+								}) {
+									Get In Touch
+								}
+								@button.Button(button.Props{
+									Variant: "outline",
+									Href:    "https://www.linkedin.com/in/fernando-correia-ab018079/",
+									Target:  "_blank",
+								}) {
+									LinkedIn
+								}
+								@button.Button(button.Props{
+									Variant: "outline",
+									Href:    "https://github.com/FACorreiaa",
+									Target:  "_blank",
+								}) {
+									GitHub
+								}
+							</div>
+						</div>
+					}
+				</div>
+			</div>
+		</div>
+	}
+}

@@ -3,39 +3,245 @@ package pages
 import (
 	"github.com/FACorreiaa/go-website/ui/components/button"
 	"github.com/FACorreiaa/go-website/ui/layouts"
+	"github.com/FACorreiaa/go-website/ui/components/card"
 )
 
-templ Landing() {
+templ CV() {
 	@layouts.BaseLayout() {
-		<div class="flex justify-center items-center min-h-screen">
-			<div class="flex flex-col gap-6 items-center justify-center px-4 w-full max-w-3xl py-16">
-				<div class="text-center space-y-4">
-					<h1 class="text-4xl font-bold">🚀 Welcome to templUI Quickstart</h1>
-					<p class="text-muted-foreground text-lg">
-						Your project is ready! ✨ Check out the documentation for guides and examples, 
-						or visit GitHub to stay up to date. Let's build something great! 🎨
-					</p>
+		<div class="min-h-screen bg-background">
+			<div class="container mx-auto px-4 py-8 max-w-4xl">
+				<!-- Header Section -->
+				<div class="text-center mb-12">
+					<h1 class="text-4xl font-bold mb-4">Your Full Name</h1>
+					<p class="text-xl text-muted-foreground mb-6">Software Engineer & Full Stack Developer</p>
+					<div class="flex justify-center gap-4 mb-6">
+						<span class="text-sm">📧 fernandocorreia316@gmail.com</span>
+						// <span class="text-sm">📱 +1 (555) 123-4567</span>
+						<span class="text-sm">📍 Berlin, Germany</span>
+					</div>
+					<div class="flex justify-center gap-3">
+						@button.Button(button.Props{
+							Variant: "outline",
+							Size:    "sm",
+							Href:    "https://github.com/FACorreiaa",
+							Target:  "_blank",
+						}) {
+							GitHub
+						}
+						@button.Button(button.Props{
+							Variant: "outline",
+							Size:    "sm",
+							Href:    "https://linkedin.com/in/yourprofile",
+							Target:  "_blank",
+						}) {
+							LinkedIn
+						}
+						@button.Button(button.Props{
+							Variant: "default",
+							Size:    "sm",							
+							Target:  "_blank",
+							Href:    "https://alunosipca-my.sharepoint.com/:w:/g/personal/a11199_alunos_ipca_pt/ESQtn-RfJexFuzTIfSrCTDIBPOEWApCr0ZQdGKxB8vmKNA?e=Wy1Trf",
+						}) {
+							Download PDF
+						}
+					</div>
 				</div>
-				<div class="flex gap-3">
-					@button.Button(button.Props{
-						Variant: "default",
-						Href:    "https://templui.io",
-						Target:  "_blank",
-					}) {
-						Documentation
-					}
-					@button.Button(button.Props{
-						Variant: "outline",
-						Href:    "https://github.com/axzilla/templui",
-						Target:  "_blank",
-					}) {
-						GitHub
+
+				<!-- Professional Summary -->
+				@card.Card() {
+					<div class="p-6">
+						<h2 class="text-2xl font-semibold mb-4">Professional Summary</h2>
+						<p class="text-muted-foreground leading-relaxed">
+							Experienced Software Engineer with 7+ years of expertise in full-stack development, 
+							specializing mainly in Go and Kubernetes but also can work with frontend technologies like Angular, React, Solid, and cloud technologies. 
+							Passionate about building scalable applications and leading technical teams to deliver innovative solutions. Passionate about building gRPC applications.
+							Recently I have been working with LLM integrations from MCP servers to SDK providers like Gemini and on the creation of agentic applications and streamlining data with Kafka. 
+						</p>
+					</div>
+				}
+
+				<!-- Experience Section -->
+				<div class="mt-8">
+					@card.Card() {
+						<div class="p-6">
+							<h2 class="text-2xl font-semibold mb-6">Experience</h2>
+							
+							<div class="space-y-6">
+								<div class="border-l-2 border-primary pl-6">
+									<div class="flex justify-between items-start mb-2">
+										<h3 class="text-lg font-semibold">Senior Software Engineer</h3>
+										<span class="text-sm text-muted-foreground">2022 - Present</span>
+									</div>
+									<p class="text-primary font-medium mb-2">Tech Company Inc.</p>
+									<ul class="text-sm text-muted-foreground space-y-1">
+										<li>• Led development of microservices architecture multiple users for multiple accounting systems.</li>
+										<li>• Collaborating with cross-functional teams to enhance system architecture and
+drive process automation for finance-related tasks.</li>
+										<li>• Developing web services for the finance sector, working on mission-critical features
+with Go, Postgres, MSSQL, and GraphQL.</li>
+										<li>• Creation of data pipelienes aggregators with Go to validate information before submission to internal API.</li>
+										<li>• Mentored junior developers and conducted code reviews</li>
+									</ul>
+									<div class="flex mb-2">
+										<h3 class="text-sm pr-2 font-semibold">Technologies:</h3>
+										<span class="text-sm text-muted-foreground">Go, Postgres, MSSQL, GraphQL, AWS</span>
+									</div>
+								</div>
+
+								<div class="border-l-2 border-muted pl-6">
+									<div class="flex justify-between items-start mb-2">
+										<h3 class="text-lg font-semibold">Software Engineer</h3>
+										<span class="text-sm text-muted-foreground">2023 - 2024</span>
+									</div>
+									<p class="text-primary font-medium mb-2">GSMK</p>
+									<ul class="text-sm text-muted-foreground space-y-1">
+										<li>• Built the web version of the company's mobile network tracking application using
+React and Rust, offering a comprehensive overview of network stations and their
+data.</li>
+										<li>• Introduced Golang for developing CLI tools to streamline multi-technology projects,
+coordinating with Erlang, Rust, and C++ teams.</li>
+										<li>• Developed gRPC-based microservices at GSMK to enable efficient communication
+between internal services, integrated with OTLP for real-time telemetry and
+monitoring with Prometheus.</li>
+									</ul>
+									<div class="flex mb-2">
+										<h3 class="text-sm pr-2 font-semibold">Technologies:</h3>
+										<span class="text-sm text-muted-foreground">React, Go, Postgres, Docker, Jenkins</span>
+									</div>
+								</div>
+
+								<div class="border-l-2 border-muted pl-6">
+									<div class="flex justify-between items-start mb-2">
+										<h3 class="text-lg font-semibold">Software developer</h3>
+										<span class="text-sm text-muted-foreground">2021 - 2023</span>
+									</div>
+									<p class="text-primary font-medium mb-2">Beedeez</p>
+									<ul class="text-sm text-muted-foreground space-y-1">
+										<li>• Led the development of a social learning platform with React Native and TypeScript,
+ensuring high reusability of frontend components.</li>
+										<li>• Built cross-platform mobile and web apps, implementing a dynamic learning
+experience with full backoffice configuration capabilities.</li>
+										<li>• Developed a Go-based tool to aggregate and manage JSON data, improving internal
+team communication and facilitating decision-making for sales teams.</li>
+									</ul>
+									<div class="flex mb-2">
+										<h3 class="text-sm pr-2 font-semibold">Technologies:</h3>
+										<span class="text-sm text-muted-foreground">React Native, NodeJS, MongoDB, Docker,</span>
+									</div>
+
+								</div>
+							</div>
+						</div>
 					}
 				</div>
-				<p class="text-sm text-muted-foreground mt-4">
-					Questions? Join our <a href="https://github.com/axzilla/templui/discussions" target="_blank" class="text-primary hover:underline">community discussions</a> 👋
-				</p>
+
+				<!-- Skills Section -->
+				<div class="mt-8">
+					@card.Card() {
+						<div class="p-6">
+							<h2 class="text-2xl font-semibold mb-6">Technical Skills</h2>
+							
+							<div class="grid md:grid-cols-2 gap-6">
+								<div>
+									<h3 class="font-semibold mb-3">Programming Languages</h3>
+									<div class="flex flex-wrap gap-2">
+										<span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Go</span>
+										<span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">JavaScript</span>
+										<span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">TypeScript</span>
+										<span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">C#</span>
+										<span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">SQL</span>
+									</div>
+								</div>
+
+								<div>
+									<h3 class="font-semibold mb-3">Frameworks & Libraries</h3>
+									<div class="flex flex-wrap gap-2">
+										<span class="px-3 py-1 bg-secondary/50 rounded-full text-sm">React</span>
+										<span class="px-3 py-1 bg-secondary/50 rounded-full text-sm">SolidStart</span>
+										<span class="px-3 py-1 bg-secondary/50 rounded-full text-sm">Gin</span>
+										<span class="px-3 py-1 bg-secondary/50 rounded-full text-sm">Echo</span>
+										<span class="px-3 py-1 bg-secondary/50 rounded-full text-sm">HTMX</span>
+									</div>
+								</div>
+
+								<div>
+									<h3 class="font-semibold mb-3">Databases & Tools</h3>
+									<div class="flex flex-wrap gap-2">
+										<span class="px-3 py-1 bg-muted rounded-full text-sm">PostgreSQL</span>
+										<span class="px-3 py-1 bg-muted rounded-full text-sm">Redis</span>
+										<span class="px-3 py-1 bg-muted rounded-full text-sm">Docker</span>
+										<span class="px-3 py-1 bg-muted rounded-full text-sm">Kubernetes</span>
+										<span class="px-3 py-1 bg-muted rounded-full text-sm">Git</span>
+									</div>
+								</div>
+
+								<div>
+									<h3 class="font-semibold mb-3">Cloud & DevOps</h3>
+									<div class="flex flex-wrap gap-2">
+										<span class="px-3 py-1 bg-accent/50 rounded-full text-sm">AWS</span>
+										<span class="px-3 py-1 bg-accent/50 rounded-full text-sm">GCP</span>
+										<span class="px-3 py-1 bg-accent/50 rounded-full text-sm">CI/CD</span>
+										<span class="px-3 py-1 bg-accent/50 rounded-full text-sm">Terraform</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					}
+				</div>
+
+				<!-- Education Section -->
+				<div class="mt-8">
+					@card.Card() {
+						<div class="p-6">
+							<h2 class="text-2xl font-semibold mb-6">Education</h2>
+							
+							<div class="border-l-2 border-primary pl-6">
+								<div class="flex justify-between items-start mb-2">
+									<h3 class="text-lg font-semibold">Bachelor and Masters of Science in Computer Science</h3>
+									<span class="text-sm text-muted-foreground">2017 - 2022</span>
+								</div>
+								<p class="text-primary font-medium mb-2">IPCA University</p>
+								<p class="text-sm text-muted-foreground">
+									Relevant coursework: Data Structures, Algorithms, Software Engineering, Database Systems
+								</p>
+							</div>
+						</div>
+					}
+				</div>
+
+				<!-- Certifications -->
+				<div class="mt-8">
+					@card.Card() {
+						<div class="p-6">
+							<h2 class="text-2xl font-semibold mb-6">Certifications</h2>
+							
+							// <div class="grid md:grid-cols-2 gap-4">
+							// 	<div class="flex items-center gap-3">
+							// 		<div class="w-2 h-2 bg-primary rounded-full"></div>
+							// 		<span class="text-sm">AWS Certified Solutions Architect</span>
+							// 	</div>
+							// 	<div class="flex items-center gap-3">
+							// 		<div class="w-2 h-2 bg-primary rounded-full"></div>
+							// 		<span class="text-sm">Certified Kubernetes Administrator</span>
+							// 	</div>
+							// 	<div class="flex items-center gap-3">
+							// 		<div class="w-2 h-2 bg-primary rounded-full"></div>
+							// 		<span class="text-sm">Google Cloud Professional Developer</span>
+							// 	</div>
+							// 	<div class="flex items-center gap-3">
+							// 		<div class="w-2 h-2 bg-primary rounded-full"></div>
+							// 		<span class="text-sm">Scrum Master Certification</span>
+							// 	</div>
+							// </div>
+						</div>
+					}
+				</div>
 			</div>
 		</div>
 	}
+}
+
+// Keep the old Landing for backward compatibility temporarily
+templ Landing() {
+	@CV()
 }

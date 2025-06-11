@@ -1,0 +1,14 @@
+name = "go-website"
+compatibility_date = "2024-11-06"
+
+[assets]
+directory = "./dist"
+
+[env.production]
+vars = { GO_ENV = "production" }
+
+[env.development]
+vars = { GO_ENV = "development" }
+
+[build]
+command = "make build && mkdir -p dist && cp -r assets/css dist/ && go run main.go > dist/index.html"

@@ -1,9 +1,19 @@
 package modules
 
 templ Navbar() {
-	<nav class="border-b py-3">
-		<div class="container mx-auto px-4 flex justify-end">
-			@ThemeSwitcher()
+	<nav class="border-b py-4">
+		<div class="container mx-auto px-4 flex justify-between items-center">
+			<div class="font-bold text-xl">
+				<a href="/" class="hover:text-primary transition-colors">Fernando Correia</a>
+			</div>
+			<div class="flex items-center gap-6">
+				<div class="hidden md:flex items-center gap-6">
+					<a href="/" class="text-sm font-medium hover:text-primary transition-colors">CV</a>
+					<a href="/about" class="text-sm font-medium hover:text-primary transition-colors">About Me</a>
+					<a href="/projects" class="text-sm font-medium hover:text-primary transition-colors">Projects</a>
+				</div>
+				@ThemeSwitcher()
+			</div>
 		</div>
 	</nav>
 }
