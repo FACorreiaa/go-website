@@ -14,7 +14,7 @@ clean:
 build: clean templ tailwind
 	mkdir -p build
 	go run github.com/syumai/workers/cmd/workers-assets-gen@latest
-	GOOS=js GOARCH=wasm go build -o ./build/app.wasm .
+	GOOS=js GOARCH=wasm go build -o ./build/app.wasm main.go
 
 # Development server
 server:
@@ -48,4 +48,12 @@ dev-wrangler:
 deploy:
 	wrangler deploy
 
-.PHONY: templ tailwind clean build server dev templ-watch tailwind-watch dev-wrangler deploy
+# Generate static single-page application
+static: templ tailwind
+	go run ui/static-gen.go
+
+# Serve static SPA locally
+serve-static:
+	cd dist && python3 -m http.server 3000
+
+.PHONY: templ tailwind clean build server dev templ-watch tailwind-watch dev-wrangler deploy static serve-static

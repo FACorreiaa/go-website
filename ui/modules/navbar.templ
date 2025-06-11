@@ -1,18 +1,63 @@
 package modules
 
 templ Navbar() {
-	<nav class="border-b py-4">
-		<div class="container mx-auto px-4 flex justify-between items-center">
-			<div class="font-bold text-xl">
+	<nav class="border-b mobile-padding md:py-4" x-data="{ mobileMenuOpen: false }">
+		<div class="container mx-auto flex justify-between items-center">
+			<div class="font-bold text-lg md:text-xl">
 				<a href="/" class="hover:text-primary transition-colors">Fernando Correia</a>
 			</div>
-			<div class="flex items-center gap-6">
+			<div class="flex items-center gap-4">
+				<!-- Desktop Navigation -->
 				<div class="hidden md:flex items-center gap-6">
 					<a href="/" class="text-sm font-medium hover:text-primary transition-colors">CV</a>
 					<a href="/about" class="text-sm font-medium hover:text-primary transition-colors">About Me</a>
 					<a href="/projects" class="text-sm font-medium hover:text-primary transition-colors">Projects</a>
 				</div>
+				
 				@ThemeSwitcher()
+				
+				<!-- Mobile Hamburger Menu Button -->
+				<button 
+					class="md:hidden hamburger" 
+					@click="mobileMenuOpen = !mobileMenuOpen"
+					:class="{ 'open': mobileMenuOpen }"
+					aria-label="Toggle mobile menu"
+				>
+					<span></span>
+					<span></span>
+					<span></span>
+				</button>
+			</div>
+		</div>
+
+		<!-- Mobile Menu Overlay -->
+		<div 
+			class="mobile-menu md:hidden"
+			:class="{ 'open': mobileMenuOpen }"
+			@click.self="mobileMenuOpen = false"
+		>
+			<div class="mobile-menu-content">
+				<a 
+					href="/" 
+					class="hover:text-primary transition-colors"
+					@click="mobileMenuOpen = false"
+				>
+					CV
+				</a>
+				<a 
+					href="/about" 
+					class="hover:text-primary transition-colors"
+					@click="mobileMenuOpen = false"
+				>
+					About Me
+				</a>
+				<a 
+					href="/projects" 
+					class="hover:text-primary transition-colors"
+					@click="mobileMenuOpen = false"
+				>
+					Projects
+				</a>
 			</div>
 		</div>
 	</nav>

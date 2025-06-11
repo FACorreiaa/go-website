@@ -187,10 +187,10 @@ templ Projects() {
 
 templ ProjectCard(project Project) {
 	@card.Card() {
-		<div class="p-6 h-full flex flex-col">
+		<div class="p-4 md:p-6 h-full flex flex-col">
 			<!-- Status Badge -->
-			<div class="flex justify-between items-start mb-4">
-				<h3 class="text-lg font-semibold">{project.Title}</h3>
+			<div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 md:mb-4">
+				<h3 class="text-base md:text-lg font-semibold mb-2 sm:mb-0">{project.Title}</h3>
 				<span class={
 					"px-2 py-1 text-xs rounded-full",
 					templ.KV("bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300", project.Status == "completed"),
@@ -208,11 +208,11 @@ templ ProjectCard(project Project) {
 			</div>
 
 			<!-- Description -->
-			<p class="text-sm text-muted-foreground mb-4 flex-grow">{project.Description}</p>
+			<p class="text-xs md:text-sm text-muted-foreground mb-3 md:mb-4 flex-grow">{project.Description}</p>
 
 			<!-- Technologies -->
-			<div class="mb-4">
-				<div class="flex flex-wrap gap-2">
+			<div class="mb-3 md:mb-4">
+				<div class="flex flex-wrap gap-1 md:gap-2">
 					for _, tech := range project.Technologies {
 						<span class="px-2 py-1 bg-secondary/50 text-secondary-foreground rounded text-xs">
 							{tech}
@@ -222,7 +222,7 @@ templ ProjectCard(project Project) {
 			</div>
 
 			<!-- Links -->
-			<div class="flex gap-2 mt-auto">
+			<div class="flex flex-col sm:flex-row gap-2 mt-auto">
 				if project.GithubURL != "" {
 					@button.Button(button.Props{
 						Variant: "outline",

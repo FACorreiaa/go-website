@@ -87,4 +87,121 @@
             "rlig" 1,
             "calt" 1;
     }
+
+    /* Mobile-first responsive utilities */
+    .container {
+        @apply w-full mx-auto px-4;
+    }
+
+    @screen sm {
+        .container {
+            @apply max-w-sm px-6;
+        }
+    }
+
+    @screen md {
+        .container {
+            @apply max-w-2xl px-8;
+        }
+    }
+
+    @screen lg {
+        .container {
+            @apply max-w-4xl;
+        }
+    }
+
+    @screen xl {
+        .container {
+            @apply max-w-6xl;
+        }
+    }
+
+    @screen 2xl {
+        .container {
+            @apply max-w-7xl;
+        }
+    }
+
+    /* Mobile-friendly text sizing */
+    .text-responsive-xl {
+        @apply text-2xl;
+    }
+
+    @screen sm {
+        .text-responsive-xl {
+            @apply text-3xl;
+        }
+    }
+
+    @screen md {
+        .text-responsive-xl {
+            @apply text-4xl;
+        }
+    }
+
+    .text-responsive-lg {
+        @apply text-lg;
+    }
+
+    @screen sm {
+        .text-responsive-lg {
+            @apply text-xl;
+        }
+    }
+
+    /* Mobile navigation styles */
+    .mobile-menu {
+        @apply fixed inset-0 bg-background/95 backdrop-blur-sm z-50 opacity-0 invisible transition-all duration-300;
+    }
+
+    .mobile-menu.open {
+        @apply opacity-100 visible;
+    }
+
+    .mobile-menu-content {
+        @apply flex flex-col items-center justify-center h-full space-y-8 text-2xl font-medium;
+    }
+
+    /* Hamburger menu styles */
+    .hamburger {
+        @apply flex flex-col justify-center items-center w-6 h-6 cursor-pointer;
+    }
+
+    .hamburger span {
+        @apply block w-6 h-0.5 bg-foreground transition-all duration-300;
+    }
+
+    .hamburger span:not(:last-child) {
+        @apply mb-1;
+    }
+
+    .hamburger.open span:first-child {
+        @apply rotate-45 translate-y-1.5;
+    }
+
+    .hamburger.open span:nth-child(2) {
+        @apply opacity-0;
+    }
+
+    .hamburger.open span:last-child {
+        @apply -rotate-45 -translate-y-1.5;
+    }
+
+    /* Mobile-friendly spacing */
+    .mobile-padding {
+        @apply px-4 py-2;
+    }
+
+    @screen sm {
+        .mobile-padding {
+            @apply px-6 py-3;
+        }
+    }
+
+    @screen md {
+        .mobile-padding {
+            @apply px-8 py-4;
+        }
+    }
 }
