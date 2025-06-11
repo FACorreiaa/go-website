@@ -11,4 +11,4 @@ vars = { GO_ENV = "production" }
 vars = { GO_ENV = "development" }
 
 [build]
-command = "make build && mkdir -p dist && cp -r assets/css dist/ && go run main.go > dist/index.html"
+command = "templ generate && make tailwind-clean && mkdir -p dist && cp -r assets/css dist/ && go build -o dist/app main.go"
