@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "build": "make build",
-    "deploy": "wrangler deploy",
-    "serve": "make serve"
+    "deploy": "make deploy",
+    "dev": "make dev-wrangler",
+    "start": "make dev-wrangler"
   },
   "devDependencies": {
+    "tailwindcss": "^4.1.7",
     "wrangler": "^4.19.2"
   }
 }

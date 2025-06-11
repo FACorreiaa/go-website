@@ -1,101 +1,52 @@
 package main
 
 import (
-	"context"
-	"io"
+	"net/http"
 	"os"
-	"path/filepath"
 
 	"github.com/FACorreiaa/go-website/ui/pages"
 	"github.com/a-h/templ"
+	"github.com/syumai/workers"
+
+	"github.com/FACorreiaa/go-website/assets"
 	"github.com/go-pdf/fpdf"
 )
 
 func main() {
-	// Create dist directory
-	distPath := "dist"
-	os.RemoveAll(distPath) // Clean existing dist
-	os.MkdirAll(distPath, 0755)
+	mux := http.NewServeMux()
+	SetupAssetsRoutes(mux)
 
-	// Generate static pages
-	generateStaticPage(distPath, "index.html", pages.Landing())
-	generateStaticPage(distPath, "about/index.html", pages.About())
-	generateStaticPage(distPath, "projects/index.html", pages.Projects())
+	// Route handlers
+	mux.Handle("GET /", templ.Handler(pages.Landing()))
+	mux.Handle("GET /about", templ.Handler(pages.About()))
+	mux.Handle("GET /projects", templ.Handler(pages.Projects()))
+	mux.HandleFunc("GET /api/cv/download", handleCVDownload)
 
-	// Copy assets to dist
-	copyAssets(distPath)
-
-	// Generate CV file
-	generateCVFile(distPath)
+	workers.Serve(mux)
 }
 
-func generateStaticPage(distPath, pagePath string, component templ.Component) {
-	// Create directory if needed
-	dir := filepath.Dir(filepath.Join(distPath, pagePath))
-	os.MkdirAll(dir, 0755)
+func SetupAssetsRoutes(mux *http.ServeMux) {
+	var isDevelopment = os.Getenv("GO_ENV") != "production"
 
-	// Create HTML file
-	file, err := os.Create(filepath.Join(distPath, pagePath))
-	if err != nil {
-		panic(err)
-	}
-	defer file.Close()
+	assetHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if isDevelopment {
+			w.Header().Set("Cache-Control", "no-store")
+		}
 
-	// Render template to file
-	err = component.Render(context.Background(), file)
-	if err != nil {
-		panic(err)
-	}
+		var fs http.Handler
+		if isDevelopment {
+			fs = http.FileServer(http.Dir("./assets"))
+		} else {
+			fs = http.FileServer(http.FS(assets.Assets))
+		}
+
+		fs.ServeHTTP(w, r)
+	})
+
+	mux.Handle("GET /assets/", http.StripPrefix("/assets/", assetHandler))
 }
 
-
-func copyAssets(distPath string) {
-	assetsDir := filepath.Join(distPath, "assets")
-	os.MkdirAll(assetsDir, 0755)
-
-	// Copy CSS files
-	copyFile("assets/css/output.css", filepath.Join(assetsDir, "css", "output.css"))
-}
-
-func copyFile(src, dst string) {
-	// Create directory if needed
-	dir := filepath.Dir(dst)
-	os.MkdirAll(dir, 0755)
-
-	// Open source file
-	srcFile, err := os.Open(src)
-	if err != nil {
-		panic(err)
-	}
-	defer srcFile.Close()
-
-	// Create destination file
-	dstFile, err := os.Create(dst)
-	if err != nil {
-		panic(err)
-	}
-	defer dstFile.Close()
-
-	// Copy content
-	_, err = io.Copy(dstFile, srcFile)
-	if err != nil {
-		panic(err)
-	}
-}
-
-func generateCVFile(distPath string) {
-	cvPath := filepath.Join(distPath, "cv.pdf")
-	file, err := os.Create(cvPath)
-	if err != nil {
-		panic(err)
-	}
-	defer file.Close()
-
-	// Generate PDF (reusing the existing CV generation logic)
-	generateCV(file)
-}
-
-func generateCV(w io.Writer) {
+func handleCVDownload(w http.ResponseWriter, r *http.Request) {
 	pdf := fpdf.New("P", "mm", "A4", "")
 	pdf.AddPage()
 
@@ -205,9 +156,14 @@ func generateCV(w io.Writer) {
 	pdf.Ln(5)
 	pdf.Cell(0, 5, "Tools: Git, Jira, Docker")
 
-	// Output PDF to writer
+	// Set response headers
+	w.Header().Set("Content-Type", "application/pdf")
+	w.Header().Set("Content-Disposition", "attachment; filename=Fernando_Correia_CV.pdf")
+
+	// Output PDF
 	err := pdf.Output(w)
 	if err != nil {
-		panic(err)
+		http.Error(w, "Error generating PDF", http.StatusInternalServerError)
+		return
 	}
 }
