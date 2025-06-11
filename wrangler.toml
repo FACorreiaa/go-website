@@ -5,5 +5,5 @@ compatibility_date = "2024-12-01"
 command = "make build"
 watch_dir = "ui"
 
-[[static_assets]]
-bucket = "./dist"
+[assets]
+directory = "./dist"
