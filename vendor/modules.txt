@@ -12,6 +12,9 @@ github.com/a-h/templ/safehtml
 # github.com/go-pdf/fpdf v0.9.0
 ## explicit; go 1.20
 github.com/go-pdf/fpdf
-# github.com/joho/godotenv v1.5.1
-## explicit; go 1.12
-github.com/joho/godotenv
+# github.com/syumai/workers v0.30.2
+## explicit; go 1.21.3
+github.com/syumai/workers
+github.com/syumai/workers/internal/jshttp
+github.com/syumai/workers/internal/jsutil
+github.com/syumai/workers/internal/runtimecontext

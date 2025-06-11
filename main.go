@@ -1,20 +1,18 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"os"
 
 	"github.com/FACorreiaa/go-website/ui/pages"
 	"github.com/a-h/templ"
-	"github.com/joho/godotenv"
+	"github.com/syumai/workers"
 
 	"github.com/FACorreiaa/go-website/assets"
 	"github.com/go-pdf/fpdf"
 )
 
 func main() {
-	InitDotEnv()
 	mux := http.NewServeMux()
 	SetupAssetsRoutes(mux)
 
@@ -24,21 +22,9 @@ func main() {
 	mux.Handle("GET /projects", templ.Handler(pages.Projects()))
 	mux.HandleFunc("GET /api/cv/download", handleCVDownload)
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8090"
-	}
-
-	fmt.Printf("Server is running on port %s\n", port)
-	http.ListenAndServe(":"+port, mux)
+	workers.Serve(mux)
 }
 
-func InitDotEnv() {
-	err := godotenv.Load()
-	if err != nil {
-		fmt.Println("Error loading .env file")
-	}
-}
 
 func SetupAssetsRoutes(mux *http.ServeMux) {
 	var isDevelopment = os.Getenv("GO_ENV") != "production"

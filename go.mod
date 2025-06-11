@@ -6,5 +6,5 @@ require (
 	github.com/Oudwins/tailwind-merge-go v0.2.1
 	github.com/a-h/templ v0.3.865
 	github.com/go-pdf/fpdf v0.9.0
-	github.com/joho/godotenv v1.5.1
+	github.com/syumai/workers v0.30.2
 )

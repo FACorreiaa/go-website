@@ -1,0 +1,14 @@
+name = "go-website"
+main = "./build/worker.mjs"
+compatibility_date = "2024-12-01"
+
+[build]
+command = "npm run build"
+
+compatibility_flags = ["nodejs_compat"]
+
+[env.production]
+vars = { GO_ENV = "production" }
+
+[env.development]
+vars = { GO_ENV = "development" }
