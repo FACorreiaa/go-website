@@ -3,7 +3,7 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'go-facorreia-website'
+app = 'facorreia-website'
 primary_region = 'lhr'
 
 [build]
@@ -12,7 +12,7 @@ primary_region = 'lhr'
 
 [env]
   MODE="production"
-  SERVER_PORT = 6968
+  SERVER_PORT = 8090
   SERVER_WRITE_TIMEOUT=15
   SERVER_READ_TIMEOUT=15
   SERVER_IDLE_TIMEOUT=150
@@ -22,7 +22,7 @@ primary_region = 'lhr'
   MODE="production"
 
 [http_service]
-  internal_port = 6968
+  internal_port = 8090
   force_https = true
   auto_stop_machines = true
   auto_start_machines = true
@@ -33,7 +33,6 @@ primary_region = 'lhr'
   handlers = ["tls", "http"]
   port = 443
 
-[[services.tls.domains]]
-  domain = "singuwe.com"
+
 
 

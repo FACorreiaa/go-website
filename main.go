@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"net/http"
 	"os"
@@ -9,8 +8,6 @@ import (
 	"github.com/FACorreiaa/go-website/ui/pages"
 	"github.com/a-h/templ"
 	"github.com/joho/godotenv"
-	"github.com/syumai/workers"
-	"github.com/syumai/workers/cloudflare/cron"
 
 	"github.com/FACorreiaa/go-website/assets"
 	"github.com/go-pdf/fpdf"
@@ -32,29 +29,8 @@ func main() {
 		port = "8090"
 	}
 
-	// fmt.Printf("Server is running on port %s\n", port)
-	// http.ListenAndServe(":"+port, mux)
-	task := func(ctx context.Context) error {
-		e, err := cron.NewEvent(ctx)
-		if err != nil {
-			return err
-		}
-		fmt.Println(e.ScheduledTime.Unix())
-		return nil
-	}
-
-	// set up the worker
-	workers.ServeNonBlock(mux)
-	cron.ScheduleTaskNonBlock(task)
-
-	// send a ready signal to the runtime
-	workers.Ready()
-
-	// block until the handler or task is done
-	select {
-	case <-workers.Done():
-	case <-cron.Done():
-	}
+	fmt.Printf("Server is running on port %s\n", port)
+	http.ListenAndServe(":"+port, mux)
 }
 
 func InitDotEnv() {
