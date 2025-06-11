@@ -3,10 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "go run github.com/syumai/workers/cmd/workers-assets-gen@latest && GOOS=js GOARCH=wasm go build -o ./build/app.wasm .",
+    "build": "make build",
     "deploy": "wrangler deploy",
-    "dev": "wrangler dev",
-    "start": "wrangler dev"
+    "serve": "make serve"
   },
   "devDependencies": {
     "wrangler": "^4.19.2"

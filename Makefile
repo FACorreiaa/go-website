@@ -1,41 +1,28 @@
-# Run templ generation in watch mode to detect all .templ files and 
-# re-create _templ.txt files on change, then send reload event to browser. 
-# Default url: http://localhost:7331
+# Generate templ files
 templ:
-	templ generate --watch --proxy="http://localhost:8090" --open-browser=false
+	templ generate
 
-# Run air to detect any go file changes to re-build and re-run the server.
-server:
-	air \
-	--build.cmd "go build -o tmp/bin/main ./main.go" \
-	--build.bin "tmp/bin/main" \
-	--build.delay "100" \
-	--build.exclude_dir "node_modules" \
-	--build.include_ext "go" \
-	--build.stop_on_error "false" \
-	--misc.clean_on_exit true
+# Generate CSS
+tailwind:
+	tailwindcss -i ./assets/css/input.css -o ./assets/css/output.css --minify
 
-tailwind-clean:
-	tailwindcss -i ./assets/css/input.css -o ./assets/css/output.css --clean
+# Clean previous builds
+clean:
+	rm -rf dist/
 
-# Run tailwindcss to generate the styles.css bundle in watch mode.
-tailwind-watch:
-	tailwindcss -i ./assets/css/input.css -o ./assets/css/output.css --watch
+# Build static site
+build: clean templ tailwind
+	go run main.go
 
-# Start development server
+# Serve static files locally for testing
+serve:
+	cd dist && python3 -m http.server 8080
+
+# Development mode with file watching
 dev:
-	make tailwind-clean
-	make -j3 tailwind-watch templ server
+	make tailwind
+	templ generate --watch --proxy="http://localhost:8080" --open-browser=false &
+	tailwindcss -i ./assets/css/input.css -o ./assets/css/output.css --watch &
+	air --build.cmd "go run main.go" --build.bin "" --build.delay "100" --build.include_ext "go,templ" --build.stop_on_error "false" --misc.clean_on_exit true
 
-	.PHONY: dev
-
-dev-wrangler:
-	wrangler dev --test-scheduled
-
-.PHONY: build
-build:
-	GOOS=js GOARCH=wasm go build -o ./build/app.wasm ./...
-
-.PHONY: deploy
-deploy:
-	wrangler deploy
+.PHONY: templ tailwind clean build serve dev
