@@ -26,3 +26,16 @@ tailwind-watch:
 dev:
 	make tailwind-clean
 	make -j3 tailwind-watch templ server
+
+	.PHONY: dev
+
+dev-wrangler:
+	wrangler dev --test-scheduled
+
+.PHONY: build
+build:
+	GOOS=js GOARCH=wasm go build -o ./build/app.wasm ./...
+
+.PHONY: deploy
+deploy:
+	wrangler deploy

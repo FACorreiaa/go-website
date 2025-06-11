@@ -8,4 +8,7 @@ require (
 	github.com/joho/godotenv v1.5.1
 )
 
-require github.com/go-pdf/fpdf v0.9.0 // indirect
+require (
+	github.com/go-pdf/fpdf v0.9.0 // indirect
+	github.com/syumai/workers v0.30.2 // indirect
+)

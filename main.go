@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"os"
@@ -8,6 +9,8 @@ import (
 	"github.com/FACorreiaa/go-website/ui/pages"
 	"github.com/a-h/templ"
 	"github.com/joho/godotenv"
+	"github.com/syumai/workers"
+	"github.com/syumai/workers/cloudflare/cron"
 
 	"github.com/FACorreiaa/go-website/assets"
 	"github.com/go-pdf/fpdf"
@@ -28,9 +31,30 @@ func main() {
 	if port == "" {
 		port = "8090"
 	}
-	
-	fmt.Printf("Server is running on port %s\n", port)
-	http.ListenAndServe(":"+port, mux)
+
+	// fmt.Printf("Server is running on port %s\n", port)
+	// http.ListenAndServe(":"+port, mux)
+	task := func(ctx context.Context) error {
+		e, err := cron.NewEvent(ctx)
+		if err != nil {
+			return err
+		}
+		fmt.Println(e.ScheduledTime.Unix())
+		return nil
+	}
+
+	// set up the worker
+	workers.ServeNonBlock(mux)
+	cron.ScheduleTaskNonBlock(task)
+
+	// send a ready signal to the runtime
+	workers.Ready()
+
+	// block until the handler or task is done
+	select {
+	case <-workers.Done():
+	case <-cron.Done():
+	}
 }
 
 func InitDotEnv() {
@@ -64,17 +88,17 @@ func SetupAssetsRoutes(mux *http.ServeMux) {
 func handleCVDownload(w http.ResponseWriter, r *http.Request) {
 	pdf := fpdf.New("P", "mm", "A4", "")
 	pdf.AddPage()
-	
+
 	// Set font
 	pdf.SetFont("Arial", "B", 16)
-	
+
 	// Header
 	pdf.Cell(0, 10, "Fernando António Torre Correia")
 	pdf.Ln(8)
 	pdf.SetFont("Arial", "", 14)
 	pdf.Cell(0, 10, "Golang Developer")
 	pdf.Ln(10)
-	
+
 	// Contact Info
 	pdf.SetFont("Arial", "", 10)
 	pdf.Cell(0, 6, "Phone: +351 937042328")
@@ -85,7 +109,7 @@ func handleCVDownload(w http.ResponseWriter, r *http.Request) {
 	pdf.Ln(5)
 	pdf.Cell(0, 6, "GitHub: https://github.com/FACorreiaa")
 	pdf.Ln(12)
-	
+
 	// Professional Summary
 	pdf.SetFont("Arial", "B", 12)
 	pdf.Cell(0, 8, "Professional Summary")
@@ -98,12 +122,12 @@ func handleCVDownload(w http.ResponseWriter, r *http.Request) {
 		"strong focus on observability and optimization."
 	pdf.MultiCell(0, 5, summary, "", "", false)
 	pdf.Ln(8)
-	
+
 	// Professional Experience
 	pdf.SetFont("Arial", "B", 12)
 	pdf.Cell(0, 8, "Professional Experience")
 	pdf.Ln(8)
-	
+
 	// iDWELL
 	pdf.SetFont("Arial", "B", 10)
 	pdf.Cell(0, 6, "Golang Developer - iDWELL (Aug 2024 - Present)")
@@ -121,7 +145,7 @@ func handleCVDownload(w http.ResponseWriter, r *http.Request) {
 		pdf.Ln(4)
 	}
 	pdf.Ln(4)
-	
+
 	// GSMK
 	pdf.SetFont("Arial", "B", 10)
 	pdf.Cell(0, 6, "Software Developer - GSMK (Jan 2023 - Aug 2024)")
@@ -139,7 +163,7 @@ func handleCVDownload(w http.ResponseWriter, r *http.Request) {
 		pdf.Ln(4)
 	}
 	pdf.Ln(4)
-	
+
 	// Education
 	pdf.SetFont("Arial", "B", 12)
 	pdf.Cell(0, 8, "Education")
@@ -150,14 +174,14 @@ func handleCVDownload(w http.ResponseWriter, r *http.Request) {
 	pdf.SetFont("Arial", "", 9)
 	pdf.Cell(0, 4, "Instituto Politécnico do Cávado e Ave - Barcelos, Portugal")
 	pdf.Ln(6)
-	
+
 	pdf.SetFont("Arial", "B", 10)
 	pdf.Cell(0, 5, "BSc in Computer Science (2014-2017)")
 	pdf.Ln(5)
 	pdf.SetFont("Arial", "", 9)
 	pdf.Cell(0, 4, "Instituto Politécnico do Cávado e Ave - Barcelos, Portugal")
 	pdf.Ln(8)
-	
+
 	// Skills
 	pdf.SetFont("Arial", "B", 12)
 	pdf.Cell(0, 8, "Skills")
@@ -170,11 +194,11 @@ func handleCVDownload(w http.ResponseWriter, r *http.Request) {
 	pdf.Cell(0, 5, "Frameworks: React, Node.js, React Native, PostgREST, Redux")
 	pdf.Ln(5)
 	pdf.Cell(0, 5, "Tools: Git, Jira, Docker")
-	
+
 	// Set response headers
 	w.Header().Set("Content-Type", "application/pdf")
 	w.Header().Set("Content-Disposition", "attachment; filename=Fernando_Correia_CV.pdf")
-	
+
 	// Output PDF
 	err := pdf.Output(w)
 	if err != nil {
