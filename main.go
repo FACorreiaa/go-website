@@ -2,7 +2,6 @@ package main
 
 import (
 	"net/http"
-	"os"
 
 	"github.com/FACorreiaa/go-website/ui/pages"
 	"github.com/a-h/templ"
@@ -26,20 +25,9 @@ func main() {
 }
 
 func SetupAssetsRoutes(mux *http.ServeMux) {
-	var isDevelopment = os.Getenv("GO_ENV") != "production"
-
 	assetHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if isDevelopment {
-			w.Header().Set("Cache-Control", "no-store")
-		}
-
-		var fs http.Handler
-		if isDevelopment {
-			fs = http.FileServer(http.Dir("./assets"))
-		} else {
-			fs = http.FileServer(http.FS(assets.Assets))
-		}
-
+		// Always use embedded assets in Worker environment
+		fs := http.FileServer(http.FS(assets.Assets))
 		fs.ServeHTTP(w, r)
 	})
 
