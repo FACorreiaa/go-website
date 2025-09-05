@@ -4,7 +4,7 @@
 #
 
 app = 'facorreia-website'
-primary_region = 'lhr'
+primary_region = 'fra'
 
 [build]
   dockerfile = "Dockerfile"
