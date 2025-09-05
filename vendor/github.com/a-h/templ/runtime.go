@@ -78,8 +78,8 @@ func GetChildren(ctx context.Context) Component {
 }
 
 // EscapeString escapes HTML text within templates.
-func EscapeString(s string) string {
-	return html.EscapeString(s)
+func EscapeString[T ~string](s T) string {
+	return html.EscapeString(string(s))
 }
 
 // Bool attribute value.
@@ -335,18 +335,18 @@ func RenderCSSItems(ctx context.Context, w io.Writer, classes ...any) (err error
 	_, v := getContext(ctx)
 	sb := new(strings.Builder)
 	renderCSSItemsToBuilder(sb, v, classes...)
-	if sb.Len() > 0 {
-		if _, err = io.WriteString(w, `<style type="text/css">`); err != nil {
-			return err
-		}
-		if _, err = io.WriteString(w, sb.String()); err != nil {
-			return err
-		}
-		if _, err = io.WriteString(w, `</style>`); err != nil {
+	if sb.Len() == 0 {
+		return nil
+	}
+	if _, err = io.WriteString(w, `<style type="text/css"`); err != nil {
+		return err
+	}
+	if v.nonce != "" {
+		if err = writeStrings(w, ` nonce="`, EscapeString(v.nonce), `"`); err != nil {
 			return err
 		}
 	}
-	return nil
+	return writeStrings(w, `>`, sb.String(), `</style>`)
 }
 
 func renderCSSItemsToBuilder(sb *strings.Builder, v *contextValue, classes ...any) {
@@ -466,44 +466,80 @@ func RenderAttributes(ctx context.Context, w io.Writer, attributes Attributer) (
 				return err
 			}
 		case *string:
-			if value != nil {
-				if err = writeStrings(w, ` `, EscapeString(key), `="`, EscapeString(*value), `"`); err != nil {
-					return err
-				}
+			if value == nil {
+				continue
+			}
+			if err = writeStrings(w, ` `, EscapeString(key), `="`, EscapeString(*value), `"`); err != nil {
+				return err
 			}
 		case bool:
-			if value {
-				if err = writeStrings(w, ` `, EscapeString(key)); err != nil {
-					return err
-				}
+			if !value {
+				continue
+			}
+			if err = writeStrings(w, ` `, EscapeString(key)); err != nil {
+				return err
 			}
 		case *bool:
-			if value != nil && *value {
-				if err = writeStrings(w, ` `, EscapeString(key)); err != nil {
-					return err
-				}
+			if value == nil || !*value {
+				continue
+			}
+			if err = writeStrings(w, ` `, EscapeString(key)); err != nil {
+				return err
+			}
+		case int, int8, int16, int32, int64,
+			uint, uint8, uint16, uint32, uint64, uintptr,
+			float32, float64, complex64, complex128:
+			if err = writeStrings(w, ` `, EscapeString(key), `="`, EscapeString(fmt.Sprint(value)), `"`); err != nil {
+				return err
+			}
+		case *int, *int8, *int16, *int32, *int64,
+			*uint, *uint8, *uint16, *uint32, *uint64, *uintptr,
+			*float32, *float64, *complex64, *complex128:
+			value = ptrValue(value)
+			if value == nil {
+				continue
+			}
+			if err = writeStrings(w, ` `, EscapeString(key), `="`, EscapeString(fmt.Sprint(value)), `"`); err != nil {
+				return err
 			}
 		case KeyValue[string, bool]:
-			if value.Value {
-				if err = writeStrings(w, ` `, EscapeString(key), `="`, EscapeString(value.Key), `"`); err != nil {
-					return err
-				}
+			if !value.Value {
+				continue
+			}
+			if err = writeStrings(w, ` `, EscapeString(key), `="`, EscapeString(value.Key), `"`); err != nil {
+				return err
 			}
 		case KeyValue[bool, bool]:
-			if value.Value && value.Key {
-				if err = writeStrings(w, ` `, EscapeString(key)); err != nil {
-					return err
-				}
+			if !value.Value || !value.Key {
+				continue
+			}
+			if err = writeStrings(w, ` `, EscapeString(key)); err != nil {
+				return err
 			}
 		case func() bool:
-			if value() {
-				if err = writeStrings(w, ` `, EscapeString(key)); err != nil {
-					return err
-				}
+			if !value() {
+				continue
+			}
+			if err = writeStrings(w, ` `, EscapeString(key)); err != nil {
+				return err
 			}
 		}
 	}
 	return nil
+}
+
+func ptrValue(v any) any {
+	if v == nil {
+		return nil
+	}
+	rv := reflect.ValueOf(v)
+	if rv.Kind() != reflect.Ptr {
+		return v
+	}
+	if rv.IsNil() {
+		return nil
+	}
+	return rv.Elem().Interface()
 }
 
 // Context.

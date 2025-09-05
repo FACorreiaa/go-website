@@ -4,7 +4,7 @@ github.com/Oudwins/tailwind-merge-go
 github.com/Oudwins/tailwind-merge-go/pkg/cache
 github.com/Oudwins/tailwind-merge-go/pkg/lru
 github.com/Oudwins/tailwind-merge-go/pkg/twmerge
-# github.com/a-h/templ v0.3.865
+# github.com/a-h/templ v0.3.943
 ## explicit; go 1.23.0
 github.com/a-h/templ
 github.com/a-h/templ/runtime
